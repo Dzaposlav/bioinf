@@ -4,8 +4,8 @@
 
 #include "bitmask.h"
 
-bitmask *bitmask::create(uint32_t size) {
-    return new bitmask(size);
+bitmask::bitmask(uint32_t size) {
+    mask.assign(size, false);
 }
 
 bitmask &bitmask::set(uint32_t idx, bool b) {
@@ -21,8 +21,8 @@ const bool bitmask::get(uint32_t idx) const {
 
 const uint32_t bitmask::select01(uint32_t idx, bool b) const {
     uint32_t sol = 0;
-    for (auto it = mask.begin(); it != mask.end(); it++) {
-        if (*it == b) {
+    for (auto it : mask) {
+        if (it == b) {
             if (--idx == 0) {
                 return sol;
             }
@@ -42,6 +42,6 @@ const uint32_t bitmask::rank1(uint32_t idx) const {
     return idx + 1 - rank0(idx);
 }
 
-const uint32_t bitmask::size(void) const {
+const uint32_t bitmask::size() const {
     return (uint32_t) mask.size();
 }

@@ -5,6 +5,8 @@
 #ifndef PROJECT_BITMASK_H
 #define PROJECT_BITMASK_H
 
+#include <cstdint>
+#include <functional>
 #include <vector>
 #include <algorithm>
 
@@ -13,7 +15,7 @@ class bitmask {
 private:
     std::vector<bool> mask;
 
-    bitmask(uint32_t size);
+    explicit bitmask(uint32_t size);
 
     inline const void check_idx(uint32_t idx) const {
         if (idx >= mask.size()) {
@@ -33,7 +35,7 @@ public:
 
     const uint32_t rank1(uint32_t idx) const;
 
-    const uint32_t size(void) const;
+    const uint32_t size() const;
 
 };
 

@@ -8,6 +8,8 @@ set(SOURCE_FILES
         # sais
         src/sais.hpp
 
+        # bitmask
+        src/bitmask.cpp src/bitmask.h
         )
 
-add_executable(bioinf src/main.cpp ${SOURCE_FILES} src/main.cpp)
+add_executable(bioinf src/main.cpp ${SOURCE_FILES})
