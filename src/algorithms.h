@@ -6,7 +6,10 @@
 #define BIOINF_ALGORITHMS_H
 
 #include <string>
+#include <vector>
 #include "sais.hpp"
-std::string build_bwt(const std::string&);
+#include "wavelet.h"
 
+std::string build_bwt(const std::string&);
+std::vector<std::pair<uint32_t, uint32_t >> get_intervals(const std::pair<uint32_t, uint32_t >&, const wavelet&);
 #endif //BIOINF_ALGORITHMS_H
