@@ -83,20 +83,6 @@ const wavelet *wavelet::findLeaf(char c) const {
     return (alpha.at(c) ? right : left)->findLeaf(c);
 }
 
-const uint32_t wavelet::select_rec(uint32_t idx, bool b) const {
-    uint32_t _idx = mask->select01(idx, b);
-    if (parent!=nullptr) {
-        _idx = parent->select_rec(_idx + 1, (this==parent->right));
-    }
-    return _idx;
-}
-
-const uint32_t wavelet::select(char elem, uint32_t idx) const {
-    if (!has_elem(elem)) {
-        throw std::invalid_argument("Wavelet doesn't have that letter");
-    }
-    return findLeaf(elem)->select_rec(idx, false);
-}
 const uint32_t wavelet::length() const {
     return mask->size();
 }

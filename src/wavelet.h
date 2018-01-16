@@ -16,7 +16,7 @@
 
 /**
  * Represents a single wavelet tree.
- * Used to answer rank/select queries.
+ * Used to answer rank queries.
  */
 class wavelet {
 
@@ -56,22 +56,12 @@ private:
         return alpha.find(elem)!=alpha.end();
     }
 
-    /**
-     * Recursive select, goes from leaf to root node
-     *
-     * @param idx index for select
-     * @param b value selected
-     * @return final select
-     */
-    const uint32_t select_rec(uint32_t idx, bool b) const;
-
 public:
 
     explicit wavelet(const std::string &str) : wavelet(nullptr, str) {};
 
     const char operator[](uint32_t idx);
     const uint32_t rank(char elem, uint32_t idx) const;
-    const uint32_t select(char elem, uint32_t idx) const;
     const uint32_t length() const;
 };
 

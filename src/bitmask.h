@@ -29,8 +29,6 @@ public:
 
     const bool get(uint32_t idx) const;
 
-    const uint32_t select01(uint32_t idx, bool b) const;
-
     const uint32_t rank0(uint32_t idx) const;
 
     const uint32_t rank1(uint32_t idx) const;
