@@ -8,6 +8,12 @@ set(SOURCE_FILES
         # sais
         src/sais.hpp
 
+        # bitmask
+        src/bitmask.cpp src/bitmask.h
+
+        # wavelet
+        src/wavelet.cpp src/wavelet.h
+
         src/algorithms.cpp src/algorithms.h)
 
-add_executable(bioinf src/main.cpp ${SOURCE_FILES})
+add_executable(bioinf src/main.cpp ${SOURCE_FILES} src/main.cpp)
