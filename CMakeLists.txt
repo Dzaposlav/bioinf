@@ -10,6 +10,9 @@ set(SOURCE_FILES
 
         # bitmask
         src/bitmask.cpp src/bitmask.h
+
+        # wavelet
+        src/wavelet.cpp src/wavelet.h
         )
 
 add_executable(bioinf src/main.cpp ${SOURCE_FILES})
