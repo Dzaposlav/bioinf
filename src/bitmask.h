@@ -15,8 +15,6 @@ class bitmask {
 private:
     std::vector<bool> mask;
 
-    explicit bitmask(uint32_t size);
-
     inline const void check_idx(uint32_t idx) const {
         if (idx >= mask.size()) {
             throw std::out_of_range("Index out of bounds for bitmask");
@@ -24,6 +22,8 @@ private:
     }
 
 public:
+
+    explicit bitmask(uint32_t size);
 
     bitmask &set(uint32_t idx, bool b);
 
