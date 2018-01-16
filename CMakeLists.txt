@@ -8,6 +8,6 @@ set(SOURCE_FILES
         # sais
         src/sais.hpp
 
-        )
+        src/algorithms.cpp src/algorithms.h)
 
-add_executable(bioinf src/main.cpp ${SOURCE_FILES} src/main.cpp)
+add_executable(bioinf src/main.cpp ${SOURCE_FILES})
