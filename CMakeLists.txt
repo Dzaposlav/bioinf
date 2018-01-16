@@ -14,6 +14,8 @@ set(SOURCE_FILES
 
         # wavelet
         src/wavelet.cpp src/wavelet.h
-        )
+
+        #alphabet
+        src/alphabet_util.cpp src/alphabet_util.h)
 
 add_executable(bioinf src/main.cpp ${SOURCE_FILES})
