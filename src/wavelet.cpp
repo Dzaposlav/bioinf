@@ -86,3 +86,7 @@ const wavelet *wavelet::findLeaf(char c) const {
 const uint32_t wavelet::length() const {
     return mask->size();
 }
+
+const uint32_t wavelet::alpha_length() const {
+  return (uint32_t) alpha.size();
+}

@@ -63,6 +63,7 @@ public:
     const char operator[](uint32_t idx);
     const uint32_t rank(char elem, uint32_t idx) const;
     const uint32_t length() const;
+    const uint32_t alpha_length() const;
 };
 
 
