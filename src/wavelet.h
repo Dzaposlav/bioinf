@@ -29,11 +29,8 @@ private:
     std::unordered_map<char, bool> alpha;
 
     // pointers
-    const wavelet *parent;
     wavelet *left;
     wavelet *right;
-
-    wavelet(const wavelet *parent, const std::string &str);
 
     /**
      * Find leaf node which contains only given characters
@@ -59,22 +56,18 @@ private:
         return alpha.find(elem) != alpha.end();
     }
 
+    inline const uint32_t rank0(const uint32_t idx) const {
+        return mask->rank0(idx);
+    }
+
     void get_intervals_rec(const interval &,
                            const interval &,
                            const alphabet_util &,
                            std::vector<interval> &) const;
 
-    inline const uint32_t rank0(const uint32_t idx) const {
-        return mask->rank0(idx);
-    }
-
 public:
 
-    explicit wavelet(const std::string &str) : wavelet(nullptr, str) {};
-
-    const char operator[](uint32_t idx);
-
-    const uint32_t rank(char elem, uint32_t idx) const;
+    explicit wavelet(const std::string &str);
 
     const uint32_t length() const;
 

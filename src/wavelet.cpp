@@ -7,7 +7,7 @@
 
 // private
 
-wavelet::wavelet(const wavelet *parent, const std::string &str) : parent(parent) {
+wavelet::wavelet(const std::string &str) {
 
     mask = new bitmask((uint32_t) str.length());
 
@@ -45,36 +45,11 @@ wavelet::wavelet(const wavelet *parent, const std::string &str) : parent(parent)
         }
     }
 
-    left = new wavelet(this, sleft);
-    right = new wavelet(this, sright);
+    left = new wavelet(sleft);
+    right = new wavelet(sright);
 }
 
 // public
-
-const char wavelet::operator[](uint32_t idx) {
-    // leaf node
-    if (leaf()) { return alpha.begin()->first; }
-
-    // recurse
-    if (mask->get(idx)) { return (*right)[mask->rank1(idx) - 1]; }
-    else { return (*left)[mask->rank0(idx) - 1]; }
-}
-
-const uint32_t wavelet::rank(char elem, uint32_t idx) const {
-    if (!has_elem(elem)) { return 0; }
-
-    if (leaf()) { return mask->rank0(idx); }
-
-    uint32_t rnk;
-    if (alpha.at(elem)) {
-        rnk = mask->rank1(idx);
-    } else {
-        rnk = mask->rank0(idx);
-    }
-
-    if (rnk-- == 0) { return 0; }
-    return (alpha.at(elem) ? right : left)->rank(elem, rnk);
-}
 
 const wavelet *wavelet::findLeaf(char c) const {
     if (leaf()) {
@@ -124,7 +99,6 @@ void wavelet::get_intervals_rec(const interval &curr_interval,
 /**
  * Algorithm 1 from https://www.sciencedirect.com/science/article/pii/S1570866712001104
  * @param curr_interval Current interval
- * @param tree Wavelet tree
  * @param alphabet Alphabet utility helper
  * @return Intervals
  */
