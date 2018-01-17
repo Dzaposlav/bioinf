@@ -11,7 +11,6 @@
 class alphabet_util {
  private:
   uint32_t sum[256];
-  char idxToAlpha[256];
  public:
   explicit alphabet_util(std::string& str);
   const uint32_t get_sum(uint32_t idx) const;
