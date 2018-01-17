@@ -16,6 +16,7 @@ wavelet::wavelet(const wavelet *parent, const std::string &str) : parent(parent)
     std::copy(str.begin(), str.end(), std::inserter(chars, chars.end()));
     std::string alphabet;
     std::copy(chars.begin(), chars.end(), std::back_inserter(alphabet));
+    std::sort(alphabet.begin(), alphabet.end());
 
     if (alphabet.length() == 1) {
         alpha[alphabet[0]] = false;
@@ -25,10 +26,10 @@ wavelet::wavelet(const wavelet *parent, const std::string &str) : parent(parent)
     }
 
     std::string sleft, sright;
-    auto half = (uint8_t) (alphabet.length() / 2);
+    auto half = (uint8_t) ((alphabet.length() - 1) / 2);
 
     for (uint32_t i = 0; i < alphabet.length(); ++i) {
-        bool right = i >= half;
+        bool right = i > half;
         char a = alphabet[i];
         alpha[a] = right;
     }
@@ -128,9 +129,9 @@ void wavelet::get_intervals_rec(const interval &curr_interval,
  * @return Intervals
  */
 const std::vector<std::pair<uint32_t, uint32_t >> wavelet::get_intervals(const interval &curr_interval,
-                                                          const alphabet_util &alphabet) const {
+                                                                         const alphabet_util &alphabet) const {
     std::vector<interval> list;
-    get_intervals_rec(curr_interval, {0, alpha_length()-1}, alphabet, list);
+    get_intervals_rec(curr_interval, {0, alpha_length() - 1}, alphabet, list);
     return list;
 }
 
