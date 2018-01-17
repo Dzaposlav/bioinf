@@ -40,6 +40,13 @@ This will download DNA FASTA file of four bacterias into bacterias folder, gener
 ./bioinf synth/example_1000.fa
 ```
 
+#### Testing
+Testing is done via python script which takes files to test as arguments
+```bash
+python3 scripts/tests.py file1 [, file2, ...]
+```
+
+
 License
 ---------
 MIT License
