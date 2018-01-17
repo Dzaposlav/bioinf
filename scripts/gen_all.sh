@@ -13,7 +13,7 @@ while [[ ${len} -lt 1000000 ]]; do
     len=$((len*10))
     >&2 echo "Generating for length ${len}..."
     # create example
-    ./scripts/gen_rand.sh ${len} ${ALPHA} > "./synth/example_${len}.in"
+    ./scripts/gen_rand.sh ${len} ${ALPHA} > "./synth/example_${len}.fa"
 done
 
 ALPHA='AHFEPNOIP'
@@ -29,5 +29,5 @@ while [[ ${len} -lt 1000000 ]]; do
     len=$((len*10))
     >&2 echo "Generating for length ${len}..."
     # create example
-    ./scripts/gen_rand.sh ${len} ${ALPHA} > "./alphabet/example_${len}.in"
+    ./scripts/gen_rand.sh ${len} ${ALPHA} > "./alphabet/example_${len}.fa"
 done
