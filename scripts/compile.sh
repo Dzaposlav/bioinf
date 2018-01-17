@@ -13,4 +13,5 @@ fi
 
 echo ${SOURCE_FILES}
 
-g++ -std=c++14 ${FLAGS} ${SOURCE_FILES} -o bioinf
+g++ -std=c++14 ${FLAGS} ${SOURCE_FILES}
+mv a.out bioinf

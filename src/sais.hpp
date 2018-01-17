@@ -31,6 +31,7 @@
 #include <cassert>
 #include <iterator>
 #include <limits>
+#include <utility>
 
 #ifdef __INTEL_COMPILER
 #pragma warning(disable : 383 981 1418)
