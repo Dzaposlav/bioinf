@@ -10,7 +10,6 @@
 #include "algorithms.h"
 
 int main(int argc, const char **argv) {
-  std::cerr << argc << std::endl;
   if (argc != 2) {
     std::cerr << "Usage: " << argv[0] << " " << "input.fasta" << std::endl;
     return -1;
