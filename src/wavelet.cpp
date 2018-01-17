@@ -17,7 +17,7 @@ wavelet::wavelet(const wavelet *parent, const std::string &str) : parent(parent)
     std::string alphabet;
     std::copy(chars.begin(), chars.end(), std::back_inserter(alphabet));
 
-    if (alphabet.length()==1) {
+    if (alphabet.length() == 1) {
         alpha[alphabet[0]] = false;
         left = nullptr;
         right = nullptr;
@@ -25,7 +25,7 @@ wavelet::wavelet(const wavelet *parent, const std::string &str) : parent(parent)
     }
 
     std::string sleft, sright;
-    auto half = (uint8_t) (alphabet.length()/2);
+    auto half = (uint8_t) (alphabet.length() / 2);
 
     for (uint32_t i = 0; i < alphabet.length(); ++i) {
         bool right = i >= half;
@@ -71,7 +71,7 @@ const uint32_t wavelet::rank(char elem, uint32_t idx) const {
         rnk = mask->rank0(idx);
     }
 
-    if (rnk--==0) { return 0; }
+    if (rnk-- == 0) { return 0; }
     return (alpha.at(elem) ? right : left)->rank(elem, rnk);
 }
 
@@ -88,5 +88,50 @@ const uint32_t wavelet::length() const {
 }
 
 const uint32_t wavelet::alpha_length() const {
-  return (uint32_t) alpha.size();
+    return (uint32_t) alpha.size();
 }
+
+/**
+ * Helper method for algorithm 1
+ * @param curr_interval Current interval
+ * @param interval Current alphabet interval
+ * @param alphabet Alphabet utility helper
+ * @param list Return list
+ */
+void wavelet::get_intervals_rec(const interval &curr_interval,
+                                const interval &alpha_interval,
+                                const alphabet_util &alphabet,
+                                std::vector<interval> &list) {
+    if (alpha_interval.first == alpha_interval.second) {
+        auto C = alphabet.get_sum(alpha_interval.first);
+        list.emplace_back(C + curr_interval.first, C + curr_interval.second);
+    } else {
+        auto a0 = rank0(curr_interval.first);
+        auto b0 = rank0(curr_interval.second + 1);
+        auto a1 = curr_interval.first - a0;
+        auto b1 = curr_interval.second + 1 - b0;
+
+        auto m = (interval.first + interval.second) / 2u;
+
+        if (b0 > a0)
+            this->left->get_intervals_rec({a0, b0 - 1}, {alpha_interval.first, m}, alphabet, list);
+        if (b1 > a1)
+            this->right->get_intervals_rec({a1, b1 - 1}, {m + 1, alpha_interval.second}, alphabet, list);
+    }
+}
+
+/**
+ * Algorithm 1 from https://www.sciencedirect.com/science/article/pii/S1570866712001104
+ * @param curr_interval Current interval
+ * @param tree Wavelet tree
+ * @param alphabet Alphabet utility helper
+ * @return Intervals
+ */
+std::vector<std::pair<uint32_t, uint32_t >> wavelet::get_intervals(const interval &curr_interval,
+                                                          const alphabet_util &alphabet) {
+    std::vector<interval> list;
+    get_intervals_rec(curr_interval, {0, alpha_length()-1}, alphabet, list);
+    return list;
+}
+
+

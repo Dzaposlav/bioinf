@@ -13,6 +13,9 @@
 #include <string>
 #include <unordered_map>
 #include "bitmask.h"
+#include "alphabet_util.h"
+
+using interval = std::pair<uint32_t, uint32_t>;
 
 /**
  * Represents a single wavelet tree.
@@ -44,7 +47,7 @@ private:
      * @return is this node a leaf node
      */
     inline const bool leaf() const {
-        return left==nullptr && right==nullptr;
+        return left == nullptr && right == nullptr;
     }
 
     /**
@@ -53,7 +56,16 @@ private:
      * @return true if wavelet has that element
      */
     inline const bool has_elem(char elem) const {
-        return alpha.find(elem)!=alpha.end();
+        return alpha.find(elem) != alpha.end();
+    }
+
+    void get_intervals_rec(const interval &,
+                           const interval &,
+                           const alphabet_util &,
+                           std::vector<interval> &);
+
+    inline const uint32_t rank0(const uint32_t idx){
+        return mask->rank0(idx);
     }
 
 public:
@@ -61,11 +73,15 @@ public:
     explicit wavelet(const std::string &str) : wavelet(nullptr, str) {};
 
     const char operator[](uint32_t idx);
-    const uint32_t rank(char elem, uint32_t idx) const;
-    const uint32_t length() const;
-    const uint32_t alpha_length() const;
-};
 
+    const uint32_t rank(char elem, uint32_t idx) const;
+
+    const uint32_t length() const;
+
+    const uint32_t alpha_length() const;
+
+    std::vector<interval> get_intervals(const interval &, const alphabet_util &);
+};
 
 
 #endif //BIOINF_WAVELET_H
