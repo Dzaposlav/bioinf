@@ -19,5 +19,5 @@ std::vector<std::pair<uint32_t, uint32_t >> get_intervals(const std::pair<uint32
                                                           const wavelet &,
                                                           const alphabet_util &);
 std::vector<int32_t> compute_lcp(const wavelet &, const alphabet_util &);
-std::vector<int32_t> compute_lcp(const std::string&);
+std::vector<int32_t> compute_lcp(std::string&);
 #endif //BIOINF_ALGORITHMS_H
