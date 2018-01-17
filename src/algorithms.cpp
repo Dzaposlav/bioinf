@@ -10,16 +10,16 @@
  * @return Transformed sequence
  */
 std::string build_bwt(const std::string &input_sequence) {
-  std::string bwt;
-  auto length = input_sequence.length();
-  auto suffix_array = new int[length];
-  saisxx(input_sequence.c_str(), suffix_array, (int) length);
+    std::string bwt;
+    auto length = input_sequence.length();
+    auto suffix_array = new int[length];
+    saisxx(input_sequence.c_str(), suffix_array, (int) length);
 
-  bwt.resize(length);
-  for (auto i = 0; i < length; ++i)
-    bwt[i] = suffix_array[i] ? input_sequence[suffix_array[i] - 1] : '$';
+    bwt.resize(length);
+    for (auto i = 0; i < length; ++i)
+        bwt[i] = suffix_array[i] ? input_sequence[suffix_array[i] - 1] : '$';
 
-  return bwt;
+    return bwt;
 }
 
 /**
@@ -29,27 +29,27 @@ std::string build_bwt(const std::string &input_sequence) {
  * @return lcp array
  */
 std::vector<int32_t> compute_lcp(const wavelet &tree, const alphabet_util &alphabet) {
-  std::queue<std::pair<std::pair<uint32_t, uint32_t>, int32_t >> Q;
-  auto sz = tree.length();
-  std::vector<int32_t> lcp(sz + 1, UNDEF);
-  lcp.at(0) = -1;
-  lcp.at(sz) = -1;
+    std::queue<std::pair<std::pair<uint32_t, uint32_t>, int32_t >> Q;
+    auto sz = tree.length();
+    std::vector<int32_t> lcp(sz + 1, UNDEF);
+    lcp.at(0) = -1;
+    lcp.at(sz) = -1;
 
-  Q.push({{0u, sz - 1u}, 0});
+    Q.push({{0u, sz - 1u}, 0});
 
-  while (!Q.empty()) {
-    auto front = Q.front();
-    Q.pop();
-    auto intervals = tree.get_intervals(front.first, alphabet);
-    for (auto &interval : intervals) {
-      if (lcp.at(interval.second) == UNDEF) {
-        lcp.at(interval.second) = front.second;
-        Q.emplace(interval, front.second + 1);
-      }
+    while (!Q.empty()) {
+        auto front = Q.front();
+        Q.pop();
+        auto intervals = tree.get_intervals(front.first, alphabet);
+        for (auto &interval : intervals) {
+            if (lcp.at(interval.second) == UNDEF) {
+                lcp.at(interval.second) = front.second;
+                Q.emplace(interval, front.second + 1);
+            }
+        }
     }
-  }
 
-  return lcp;
+    return lcp;
 }
 
 /**
@@ -57,7 +57,8 @@ std::vector<int32_t> compute_lcp(const wavelet &tree, const alphabet_util &alpha
  * @return lcp array
  */
 std::vector<int32_t> compute_lcp(std::string &sequence) {
-  alphabet_util alphabet(sequence);
-  wavelet tree(build_bwt(sequence));
-  return compute_lcp(tree, alphabet);
+    alphabet_util alphabet(sequence);
+    std::string bwt = build_bwt(sequence);
+    wavelet tree(bwt);
+    return compute_lcp(tree, alphabet);
 }

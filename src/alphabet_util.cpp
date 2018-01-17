@@ -5,7 +5,7 @@
 #include "alphabet_util.h"
 alphabet_util::alphabet_util(std::string &str) {
   std::string copy;
-  std::copy(str.begin(), str.end(), std::back_inserter(str));
+  std::copy(str.begin(), str.end(), std::back_inserter(copy));
   std::sort(copy.begin(), copy.end());
   uint32_t curr = 1;
   uint32_t csum = 0;
