@@ -3,7 +3,7 @@
 //
 
 #include "alphabet_util.h"
-alphabet_util::alphabet_util(const std::string &str) {
+alphabet_util::alphabet_util(std::string &str) {
   std::string copy;
   std::copy(str.begin(), str.end(), std::back_inserter(str));
   std::sort(copy.begin(), copy.end());

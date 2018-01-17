@@ -83,7 +83,7 @@ std::vector<int32_t> compute_lcp(const wavelet &tree, const alphabet_util &alpha
   lcp.at(0) = -1;
   lcp.at(sz) = -1;
 
-  Q.emplace({0, sz - 1}, 0);
+  Q.push({{0u, sz - 1u}, 0});
 
   while (!Q.empty()) {
     auto front = Q.front();
@@ -104,7 +104,7 @@ std::vector<int32_t> compute_lcp(const wavelet &tree, const alphabet_util &alpha
  * Wrapper method for algorithm 2, gets input sequence, does all transformations and calculations adn then returns lcp array
  * @return lcp array
  */
-std::vector<int32_t> compute_lcp(const std::string &sequence) {
+std::vector<int32_t> compute_lcp(std::string &sequence) {
   alphabet_util alphabet(sequence);
   wavelet tree(build_bwt(sequence));
   return compute_lcp(tree, alphabet);
