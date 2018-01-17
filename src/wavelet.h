@@ -62,9 +62,9 @@ private:
     void get_intervals_rec(const interval &,
                            const interval &,
                            const alphabet_util &,
-                           std::vector<interval> &);
+                           std::vector<interval> &) const;
 
-    inline const uint32_t rank0(const uint32_t idx){
+    inline const uint32_t rank0(const uint32_t idx) const {
         return mask->rank0(idx);
     }
 
@@ -80,7 +80,7 @@ public:
 
     const uint32_t alpha_length() const;
 
-    std::vector<interval> get_intervals(const interval &, const alphabet_util &);
+    const std::vector<interval> get_intervals(const interval &, const alphabet_util &) const;
 };
 
 

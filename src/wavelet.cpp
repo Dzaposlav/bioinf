@@ -101,7 +101,7 @@ const uint32_t wavelet::alpha_length() const {
 void wavelet::get_intervals_rec(const interval &curr_interval,
                                 const interval &alpha_interval,
                                 const alphabet_util &alphabet,
-                                std::vector<interval> &list) {
+                                std::vector<interval> &list) const {
     if (alpha_interval.first == alpha_interval.second) {
         auto C = alphabet.get_sum(alpha_interval.first);
         list.emplace_back(C + curr_interval.first, C + curr_interval.second);
@@ -111,7 +111,7 @@ void wavelet::get_intervals_rec(const interval &curr_interval,
         auto a1 = curr_interval.first - a0;
         auto b1 = curr_interval.second + 1 - b0;
 
-        auto m = (interval.first + interval.second) / 2u;
+        auto m = (alpha_interval.first + alpha_interval.second) / 2u;
 
         if (b0 > a0)
             this->left->get_intervals_rec({a0, b0 - 1}, {alpha_interval.first, m}, alphabet, list);
@@ -127,8 +127,8 @@ void wavelet::get_intervals_rec(const interval &curr_interval,
  * @param alphabet Alphabet utility helper
  * @return Intervals
  */
-std::vector<std::pair<uint32_t, uint32_t >> wavelet::get_intervals(const interval &curr_interval,
-                                                          const alphabet_util &alphabet) {
+const std::vector<std::pair<uint32_t, uint32_t >> wavelet::get_intervals(const interval &curr_interval,
+                                                          const alphabet_util &alphabet) const {
     std::vector<interval> list;
     get_intervals_rec(curr_interval, {0, alpha_length()-1}, alphabet, list);
     return list;
